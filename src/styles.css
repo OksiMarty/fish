@@ -81,11 +81,6 @@ section {
   display: block;
 }
 
-ul,
-ol {
-  list-style: none;
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -102,7 +97,7 @@ body {
 h1 {
   text-align: center;
   font-family: "Reggae One", cursive;
-  color: #D3953C;
+  color: #d3953c;
   font-size: 3.5rem;
   padding-bottom: 1rem;
 }
@@ -143,9 +138,9 @@ h1 {
 
 .inputPoint input:focus {
   outline: none;
-  border-color: #D3953C;
+  border-color: #d3953c;
   border-width: 0.3rem;
-  color: #D3953C;
+  color: #d3953c;
 }
 
 .inputPointFlex {
@@ -160,6 +155,12 @@ h1 {
   flex: 1;
   color: #ffffffff;
   padding-left: 0.5rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.inputPointFlex2:hover {
+  cursor: pointer;
+  color: #d3953c;
 }
 
 .buttonMad {
@@ -173,7 +174,7 @@ h1 {
   font-size: 1.8rem;
   font-weight: 750;
   transition: all 0.2s ease-in-out;
-  border-color: #466c83;
+  border-style: none;
 }
 
 .buttonMad:hover {
