@@ -1,6 +1,3 @@
-let buttonMad = document.getElementById("buttonMad");
-buttonMad.addEventListener("click", goMad);
-let inputValues = [];
 let vulgarList = [
   "fuck",
   "fuck you",
@@ -16,7 +13,7 @@ let vulgarList = [
   "cunt",
 ];
 
-let myArray = {
+let myRandom = {
   adjective: [
     "bright",
     "sweet",
@@ -111,29 +108,42 @@ let myArray = {
   ],
 };
 
+let buttonMad = document.getElementById("buttonMad");
+buttonMad.addEventListener("click", goMad);
+let inputValues = [];
+
 function goMad(event) {
   event.preventDefault();
 
   let inputElements = document.getElementsByTagName("input");
+  let inputPromises = [];
+
   for (var i = 0; i < inputElements.length; i++) {
     let currentInput = inputElements[i];
     let elementValue = currentInput.value;
 
     if (elementValue) {
       for (var j = 0; j < vulgarList.length; j++) {
-        if (elementValue.toLowerCase() == vulgarList[j]) {
+        if (elementValue.toLowerCase().trim() == vulgarList[j]) {
           currentInput.value = "";
 
           currentInput.setAttribute("placeholder", "No vulgar!");
           break;
         }
       }
-      inputValues.push(elementValue);
+      inputPromises.push(Promise.resolve(elementValue));
     } else {
       inputElements[i].setAttribute("placeholder", "Word!");
+      inputPromises.push(Promise.reject());
     }
   }
-  showStory(inputValues);
+
+  Promise.allSettled(inputPromises).then((results) => {
+    if (results.every((result) => result.status === "fulfilled")) {
+      const inputValues = results.map((result) => result.value);
+      showStory(inputValues);
+    }
+  });
 }
 
 function showStory(values) {
@@ -148,10 +158,9 @@ function showStory(values) {
 
   newParagraph.setAttribute(
     "style",
-    "font-size: 1.5rem; background-color: white; text-align: justify; padding: 2rem; color: rgb(70, 108, 131); border-radius: 1rem;"
+    "font-size: 1.5rem; line-height:1.5; background-color: white; text-align: justify; padding: 2rem; color: rgb(70, 108, 131); border-radius: 1rem;"
   );
-  n.media = "(max-width:642px)";
-  n.fontSize = "1rem";
+
   secondaryWrapper.appendChild(newParagraph);
 
   let spanInput = newParagraph.querySelectorAll("span");
@@ -199,7 +208,7 @@ function showRandom(i) {
     event.preventDefault();
     let z = input.classList.toString();
 
-    input.value = myArray[z][Math.floor(Math.random() * myArray[z].length)];
+    input.value = myRandom[z][Math.floor(Math.random() * myRandom[z].length)];
   };
 }
 
