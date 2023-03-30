@@ -1,139 +1,24 @@
-let vulgarList = [
-  "fuck",
-  "fuck you",
-  "fuck off",
-  "shit",
-  "piss off",
-  "dick head",
-  "asshole",
-  "son of a bitch",
-  "bastard",
-  "bitch",
-  "damn",
-  "cunt",
-];
-
-let myRandom = {
-  adjective: [
-    "bright",
-    "sweet",
-    "brave",
-    "cute",
-    "funny",
-    "sneaky",
-    "stupid",
-    "awesome",
-  ],
-  country: [
-    "China",
-    "Japan",
-    "Canada",
-    "Iceland",
-    "Finland",
-    "Ukraine",
-    "France",
-    "Denmark",
-  ],
-
-  adverb: [
-    "abruptly",
-    "blissfully",
-    "carefully",
-    "deliberately",
-    "effortlessly",
-    "frankly",
-    "gently",
-    "happily",
-  ],
-
-  animal: [
-    "lion",
-    "elephant",
-    "kangaroo",
-    "giraffe",
-    "tiger",
-    "gorilla",
-    "sloth",
-    "koala",
-  ],
-  verbIng: [
-    "running",
-    "laughing",
-    "dancing",
-    "cooking",
-    "singing",
-    "writing",
-    "reading",
-    "sleeping",
-  ],
-  verb: [
-    "jump",
-    "climb",
-    "whisper",
-    "explore",
-    "build",
-    "play",
-    "drive",
-    "listen",
-  ],
-  liquid: [
-    "beer",
-    "oil",
-    "milk",
-    "coffee",
-    "gasoline",
-    "tea",
-    "wine",
-    "lemonade",
-  ],
-  partOfbody: [
-    "ear",
-    "nose",
-    "toe",
-    "mouth",
-    "eye",
-    "eyelash",
-    "thumb",
-    "earlobe",
-  ],
-  place: [
-    "theatre",
-    "cinema",
-    "cafe",
-    "library",
-    "supermarket",
-    "zoo",
-    "gym",
-    "bakery",
-  ],
-};
-
-let buttonMad = document.getElementById("buttonMad");
-buttonMad.addEventListener("click", goMad);
-let inputValues = [];
+let inputElements = document.getElementsByTagName("input");
+const buttonMad = document.getElementById("buttonMad");
+buttonMad.addEventListener("click", goMad)
 
 function goMad(event) {
   event.preventDefault();
-
-  let inputElements = document.getElementsByTagName("input");
   let inputPromises = [];
+for (const element of inputElements) {
+    let elementValue = element.value;
+if (elementValue) {
+      for (const vulgar of vulgarList) {
+        if (elementValue.toLowerCase().trim() == vulgar) {
+          element.value = "";
 
-  for (var i = 0; i < inputElements.length; i++) {
-    let currentInput = inputElements[i];
-    let elementValue = currentInput.value;
-
-    if (elementValue) {
-      for (var j = 0; j < vulgarList.length; j++) {
-        if (elementValue.toLowerCase().trim() == vulgarList[j]) {
-          currentInput.value = "";
-
-          currentInput.setAttribute("placeholder", "No vulgar!");
+          element.setAttribute("placeholder", "No vulgar!");
           break;
         }
       }
       inputPromises.push(Promise.resolve(elementValue));
     } else {
-      inputElements[i].setAttribute("placeholder", "Word!");
+      element.setAttribute("placeholder", "Word!");
       inputPromises.push(Promise.reject());
     }
   }
@@ -196,10 +81,10 @@ function showStory(values) {
 }
 
 for (let i = 1; i < 14; i++) {
-  let x = document.getElementById(`button${i}`);
-  let y = showRandom(i);
+  let buttonClicked = document.getElementById(`button${i}`);
+  let showRandomResult = showRandom(i);
 
-  x.addEventListener("click", y);
+  buttonClicked.addEventListener("click", showRandomResult);
 }
 
 function showRandom(i) {
