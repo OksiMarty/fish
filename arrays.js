@@ -11,6 +11,7 @@ const vulgarList = [
   "bitch",
   "damn",
   "cunt",
+  "ass",
 ];
 
 const myRandom = {

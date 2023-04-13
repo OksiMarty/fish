@@ -1,13 +1,13 @@
 let inputElements = document.getElementsByTagName("input");
 const buttonMad = document.getElementById("buttonMad");
-buttonMad.addEventListener("click", goMad)
+buttonMad.addEventListener("click", goMad);
 
 function goMad(event) {
   event.preventDefault();
   let inputPromises = [];
-for (const element of inputElements) {
+  for (const element of inputElements) {
     let elementValue = element.value;
-if (elementValue) {
+    if (elementValue) {
       for (const vulgar of vulgarList) {
         if (elementValue.toLowerCase().trim() == vulgar) {
           element.value = "";
@@ -77,23 +77,28 @@ function showStory(values) {
   goMadAgainButton.addEventListener("mouseleave", () => {
     h.backgroundColor = "rgb(70, 108, 131)";
   });
+  goMadAgainButton.addEventListener("click", () => {
+    location.reload();
+  });
   secondaryWrapper.appendChild(goMadAgainButton);
 }
 
 for (let i = 1; i < 14; i++) {
   let buttonClicked = document.getElementById(`button${i}`);
-  let showRandomResult = showRandom(i);
 
-  buttonClicked.addEventListener("click", showRandomResult);
+  buttonClicked.addEventListener("click", showRandom(i));
 }
 
 function showRandom(i) {
   let input = document.getElementById(i);
   return function (event) {
     event.preventDefault();
-    let z = input.classList.toString();
+    let inputClass = input.classList.toString();
 
-    input.value = myRandom[z][Math.floor(Math.random() * myRandom[z].length)];
+    input.value =
+      myRandom[inputClass][
+        Math.floor(Math.random() * myRandom[inputClass].length)
+      ];
   };
 }
 
